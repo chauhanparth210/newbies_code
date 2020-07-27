@@ -10,6 +10,8 @@ Tracker repo for newbies 🔰
 │   │   |  ├── P1.cpp
 │   │   |  ├── P2.cpp
 │   │   |  └── P3.cpp
+|   ├── Codeforces
+|   |   ├── ContestNumber_QuestionName.cpp
 ```
 Try to maintain ```👆above``` folder structure.
 
