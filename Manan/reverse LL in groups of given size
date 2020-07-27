@@ -1,0 +1,169 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node* next;
+    node* prev;
+};
+void insertionAtEnd(node** n,int d)
+{
+    node* m=new node;
+
+    m->data=d;
+    m->next=NULL;
+
+    node* last=*n;
+
+    if(*n==NULL)
+    {
+        *n=m;
+        return;
+    }
+
+    while(last->next!=NULL)
+    {
+        last=last->next;
+    }
+    last->next=m;
+    m->prev=last;
+    return;
+}
+void insertionAtBegin(node** head,int d)
+{
+    node* m=new node();
+    m->data=d;
+    m->next=*head;
+    m->prev=NULL;
+    if(*head==NULL)
+    {
+        *head=m;
+        return;
+    }
+    (*head)->prev=m;
+
+    *head=m;
+}
+void deletion(node* head,int d)
+{
+    node* pre;
+    node* after;
+    node* temp;
+    temp=head;
+    while(temp->data!=d)
+    {
+        pre=temp;
+        temp=temp->next;
+        if(temp==NULL)
+        {
+            cout<<"NOT FOUND"<<endl;
+            break;
+        }
+    }
+    pre->next=temp->next;
+    temp->next->prev=pre;
+}
+void merging(node** head,node** n_head)
+{
+    node* temp1;
+    node* temp2;
+    node* next1;
+    node* next2;
+    temp1=*head;
+    temp2=*n_head;
+    next1=*head;
+    next2=*n_head;
+    int flag;
+    while(temp1!=NULL && temp2!=NULL)
+    {
+        next1=temp1->next;
+        next2=temp2->next;
+        temp1->next=temp2;
+        temp2->next=next1;
+        temp1=next1;
+        temp2=next2;
+    }
+    *n_head=temp2;
+}
+void deleteList(node** head)
+{
+    node* cur=*head;
+    node* nex;
+    while(cur!=NULL)
+    {
+        nex=cur->next;
+        free(cur);
+        cur=nex;
+    }
+    *head=NULL;
+}
+node* reverse(node* head,int k)
+{
+    node* temp=head;
+    node* next1;
+    node* pre=NULL;
+    int cnt=0;
+    while(temp!=NULL)
+    {
+        if(cnt==k)
+            break;
+        cnt++;
+        next1=temp->next;
+        temp->next=pre;
+        pre=temp;
+        temp=next1;
+    }
+    if(temp!=NULL)
+    {
+        head->next=reverse(temp,k);
+    }
+    return pre;
+}
+void output(node* n)
+{
+    while(n!=NULL)
+    {
+        cout<<n->data<<" ";
+        n=n->next;
+    }
+}
+int main()
+{
+    node* head=NULL;
+
+    for(int i=1;i<4;i++)
+        insertionAtEnd(&head,i);
+
+    //output(head);
+
+    node* n_head=NULL;
+    for(int i=6;i<=10;i++)
+        insertionAtBegin(&n_head,i);
+
+    /*cout<<endl;
+    output(n_head);*/
+
+    //merging two linked list
+    /*merging(&head,&n_head);
+
+    cout<<endl;
+    output(head);
+    cout<<endl;
+    output(n_head);*/
+
+    //reverse list in groups of given size
+    deleteList(&head);
+    for(int i=1;i<=10;i++)
+        insertionAtEnd(&head,i);
+
+    //cout<<endl;
+    output(head);
+
+    head=reverse(head,3);
+
+    cout<<endl;
+    output(head);
+
+}
