@@ -1,0 +1,89 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node* next;
+    node* prev;
+};
+void insertionAtEnd(node** n,int d)
+{
+    node* m=new node;
+
+    m->data=d;
+    m->next=NULL;
+
+    node* last=*n;
+
+    if(*n==NULL)
+    {
+        *n=m;
+        return;
+    }
+
+    while(last->next!=NULL)
+    {
+        last=last->next;
+    }
+    last->next=m;
+    m->prev=last;
+    return;
+}
+void insertionAtBegin(node** head,int d)
+{
+    node* m=new node();
+    m->data=d;
+    m->next=*head;
+    m->prev=NULL;
+    (*head)->prev=m;
+
+    *head=m;
+}
+void deletion(node* head,int d)
+{
+    node* pre;
+    node* after;
+    node* temp;
+    temp=head;
+    while(temp->data!=d)
+    {
+        pre=temp;
+        temp=temp->next;
+        if(temp==NULL)
+        {
+            cout<<"NOT FOUND"<<endl;
+            break;
+        }
+    }
+    pre->next=temp->next;
+    temp->next->prev=pre;
+}
+void output(node* n)
+{
+    while(n!=NULL)
+    {
+        cout<<n->data<<" ";
+        n=n->next;
+    }
+}
+int main()
+{
+    node* head=NULL;
+
+    for(int i=1;i<=5;i++)
+        insertionAtEnd(&head,i);
+
+    output(head);
+
+    for(int i=6;i<=10;i++)
+        insertionAtBegin(&head,i);
+
+    cout<<endl;
+    output(head);
+
+    deletion(head,1);
+    cout<<endl;
+    output(head);
+}
