@@ -87,41 +87,42 @@ class List{
     }
 };
 
+node* reverse_list(node *head, node* &new_head){
+    
+    if(head == NULL)    return NULL;
+
+    node *itr = reverse_list(head -> next, new_head);
+    if(itr != NULL){
+        itr -> next = head;
+        head -> next = NULL;
+    }
+    else {
+        new_head = head;
+    }
+        
+    return head;
+}
 
 
 int main()
 {
-    int choise;
     List LinkedList;
-    while(true){
-        cout << "1. Insert value \n2. Delete value \n3. Print value \n4 Exit \nEnter your choise: ";
-        cin >> choise;
 
-        switch (choise){
-            case 1:{
-                int val;
-                cout << "\nEnter number: ";
-                cin >> val;
-                LinkedList.insert(val);
-                break;
-            }
-            case 2:{
-                int val;
-                cout << "\nEnter number to delete: ";
-                cin >> val;
-                LinkedList.remove(val);
-                break;
-            }
-            case 3:{
-                LinkedList.show();
-                break;
-            }
-            
-            default:
-                return 0;
-        }
-    }
+    LinkedList.insert(1);
+    LinkedList.insert(2);
+    LinkedList.insert(3);
+    LinkedList.insert(4);
+    LinkedList.insert(5);
+    LinkedList.insert(6);
+    LinkedList.insert(7);
+    LinkedList.insert(8);
+    LinkedList.insert(9);
 
+    node *head;
+    node *last = reverse_list(LinkedList.getHead(), head);
+    LinkedList.setHead(head);
+    LinkedList.show();
+    //show1();
 
     return 0;
 }
