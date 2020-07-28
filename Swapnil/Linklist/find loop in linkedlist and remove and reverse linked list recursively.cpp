@@ -149,7 +149,7 @@ node* reverselinkedlist(node* curr,node*prev)
         return reverselinkedlist(next,curr);
     }
 }
-bool findloop(node* head)
+bool findloop_and_remove(node* head)
 {
     node* slowptr=head;
     node* fastptr=head;
@@ -159,6 +159,13 @@ bool findloop(node* head)
         slowptr=slowptr->next;
         if(fastptr==slowptr)
         {
+            slowptr=head;
+            while(slowptr->next!=fastptr->next)
+            {
+                slowptr=slowptr->next;
+                fastptr=fastptr->next;
+            }
+            fastptr->next=NULL;
             return true;
         }
     }
@@ -182,7 +189,7 @@ void solve()
     print(linkedlist);
     linkedlist=reverselinkedlist(linkedlist,NULL);
     print(linkedlist);
-    if(findloop(linkedlist))
+    if(findloop_and_remove(linkedlist))
     {
         cout<<"YES\n";
     }
@@ -190,8 +197,8 @@ void solve()
     {
         cout<<"NO\n";
     }
-    linkedlist->next->next->next->next=linkedlist;
-    if(findloop(linkedlist))
+    linkedlist->next->next->next->next->next->next->next->next->next->next->next->next=linkedlist->next->next->next->next;
+    if(findloop_and_remove(linkedlist))
     {
         cout<<"YES\n";
     }
@@ -199,6 +206,7 @@ void solve()
     {
         cout<<"NO\n";
     }
+    print(linkedlist);
 }
 signed main()
 {
