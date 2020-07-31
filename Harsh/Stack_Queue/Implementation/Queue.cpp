@@ -8,11 +8,11 @@ class Queue{
     public:
     Queue(){}
 
-    void push(int val){
+    void enqueue(int val){
         v.push_back(val);
     }
 
-    void pop(){
+    void dequeue(){
         v.erase(v.begin());
     }
 
@@ -37,16 +37,16 @@ int main(){
 
     Queue q;
 
-    q.push(1);
-    q.push(2);
-    q.push(3);
-    q.push(4);
-    q.push(5);
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+    q.enqueue(4);
+    q.enqueue(5);
     q.show();
 
-    q.pop();
-    q.pop();
-    q.pop();
+    q.dequeue();
+    q.dequeue();
+    q.dequeue();
 
     cout << q.front() << endl;
     q.show();
