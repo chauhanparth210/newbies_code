@@ -32,15 +32,15 @@ void printll(ll* head) {
 	}
 }
 
-ll* reverse(ll* head, ll* pre) {
-	if (head->next == NULL) {
-		head->next = pre;
-		return head;
+ll* reverse(ll* curr, ll* prev) {
+	if (curr->next == NULL) {
+		curr->next = prev;
+		return curr;
 	}
-	ll* nex = head->next;
-	head->next = pre;
-	pre = head;
-	return reverse(nex, pre);
+	ll* nextLL = curr->next;
+	curr->next = prev;
+	prev = curr;
+	return reverse(nextLL, curr);
 }
 
 int main()
