@@ -43,6 +43,44 @@ ll* reverse(ll* curr, ll* prev) {
 	return reverse(nextLL, curr);
 }
 
+ll* swap(ll* curr, ll* nextL, ll* head) {
+	nextL->next = curr;
+	curr->next = NULL;
+	if (curr == head) return nextL;
+	return curr;
+}
+
+ll* swapPairs(ll* head) {
+
+	if (head == NULL || head->next == NULL) {
+		return head;
+	}
+
+	bool isFirst = true;
+
+	ll* ans = head;
+	ll* sp = head;
+	ll* fp = head->next;
+
+	while (fp) {
+		if (isFirst) {
+			ans = swap(sp, fp, head);
+			sp = head->next;
+			isFirst  = false;
+			// printll(head);
+		} else {
+			sp = swap(sp, fp, head);
+		}
+		if (fp->next->next == NULL) {
+			break;
+		}
+		fp = fp->next->next;
+		sp = sp->next;
+	}
+
+	return ans;
+}
+
 int main()
 {
 #ifndef PRINTOUTPUT
@@ -54,7 +92,8 @@ int main()
 	append(&head, 2);
 	append(&head, 3);
 	append(&head, 4);
-	head = reverse(head, NULL);
+	// head = reverse(head, NULL );
+	head = swapPairs(head);
 	printll(head);
 	return 0;
 }
